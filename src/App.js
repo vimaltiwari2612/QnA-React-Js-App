@@ -29,6 +29,21 @@ function App() {
       console.log("deleted", item)
   }
 
+  const deleteAnswer = (answer,item) =>{
+    console.log('deleting ',answer);
+    for(var entry in database){
+      var ques = database[entry].question;
+      if(ques === item.question && database[entry].answers !== undefined){
+        database[entry].answers = database[entry].answers.filter((ele) =>{
+            return ele !== answer;
+        });
+        break;
+      }
+    }
+    setDatabase([...database]);
+    console.log("deleted", answer);
+  }
+
   const addAnswer = (answer,item) =>{
     console.log('adding "'+answer+'" to  "'+item.question+'"');
     for(var entry in database){
@@ -50,7 +65,7 @@ function App() {
   return (
     <Card>
   <Card.Body> 
-    <HomePage name="Welcome to the Forum!" addQuestion={addQuestion} deleteQuestion={deleteQuestion} addAnswer={addAnswer} database={database} />
+    <HomePage name="Welcome to the Forum!" addQuestion={addQuestion} deleteQuestion={deleteQuestion} addAnswer={addAnswer} database={database} deleteAnswer={deleteAnswer}/>
   </Card.Body>
   </Card>
    );

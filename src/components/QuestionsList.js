@@ -1,17 +1,39 @@
-import React from 'react'
-import QuestionItem  from './QuestionItem';
+import React from "react";
+import { Badge, Table } from "react-bootstrap";
+import QuestionItem from "./QuestionItem";
 
 export default function QuestionsList(props) {
-    return (
-        <div>
-            <h4> Feeds </h4>
-            {props.database.length===0? "No Questions to display":  
-            props.database.map((questionItem)=>{
-                return (<QuestionItem key={questionItem.question} item={questionItem} deleteQuestion={props.deleteQuestion} addAnswer={props.addAnswer}/>   
-                )
-            })
-              }
-        </div>
-    )
+  return (
+    <div>
+      <Table bordered hover responsive>
+        <thead>
+          <tr>
+            <th>
+              Posted Questions{" "}
+              <Badge variant="info">{props.database.length}</Badge>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.database.length === 0
+            ? ""
+            : props.database.map((questionItem) => {
+                return (
+                  <tr>
+                    <td>
+                      <QuestionItem
+                        key={questionItem.question}
+                        item={questionItem}
+                        deleteQuestion={props.deleteQuestion}
+                        addAnswer={props.addAnswer}
+                        deleteAnswer={props.deleteAnswer}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+        </tbody>
+      </Table>
+    </div>
+  );
 }
-
